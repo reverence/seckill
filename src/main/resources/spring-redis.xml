@@ -33,11 +33,20 @@
         </property>
     </bean>
 
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitTime}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="minIdle" value="${redis.minIdle}"/>
+    </bean>
+
     <bean id="jedisConnFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
         <property name="usePool" value="true"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
         <constructor-arg ref="redisSentinelConfiguration" />
     </bean>
 

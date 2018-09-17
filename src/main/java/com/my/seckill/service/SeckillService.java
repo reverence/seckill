@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * Created by tufei on 2018/9/2.
@@ -116,7 +117,6 @@ public class SeckillService {
         if(alreadyKilled(userName,goodsId)){
             return new SeckillResult("您已成功秒杀过该商品");
         }
-        System.out.println(Thread.currentThread().getName()+"enter kill");
         //同一个用户一秒内只允许访问一次
         //这里利用分布式锁即可，key的过期时间为1s
         if(!redisService.getSeckillCacheLockByLua(Constants.SECKILL_USER_ACCESS_RATE_PREFIX+userName+goodsId,1)){
@@ -136,10 +136,8 @@ public class SeckillService {
         }
         SeckillResult result = new SeckillResult("秒杀失败");
         try {
-             System.out.println(Thread.currentThread().getName()+"start kill");
              result = seckillDetailService.doSeckill(goodsId,userName);
              redisService.setSeckillCacheKey(Constants.SECKILL_SUCCESS_USER_PREFIX+userName+"_"+goodsId,"1",10,TimeUnit.MINUTES);
-             System.out.println(Thread.currentThread().getName()+"end kill");
         }catch (OptimisticLockingFailureException oe){
             oe.printStackTrace();//库存已经没了
             if(!finished.get()){
@@ -164,7 +162,8 @@ public class SeckillService {
         long currentTime = System.currentTimeMillis();
         long result = redisService.getNextAccessTimeByLua(key,timeMills,limit);
         while(currentTime<result){
-            currentTime = System.currentTimeMillis();//use park instead?
+            LockSupport.parkNanos(10);
+            currentTime = System.currentTimeMillis();
         }
     }
 

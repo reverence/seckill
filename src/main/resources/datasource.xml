@@ -17,6 +17,7 @@
         <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
         <property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}"/>
         <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
+        <property name="acquireIncrement" value="${c3p0.acquireIncrement}"/>
         <property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"/>
     </bean>
 </beans>
