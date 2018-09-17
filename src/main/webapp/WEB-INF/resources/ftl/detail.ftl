@@ -33,12 +33,11 @@
 <!--以下应该放cdn上-->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!-- jQery countDonw倒计时插件  -->
 <script src="//cdn.bootcss.com/jquery.countdown/2.1.0/jquery.countdown.min.js"></script>
-<script src="${basePath}/resources/js/seckill.js?v=20180905"  type="text/javascript"></script>
+<script src="${basePath}/resources/js/seckill.js"  type="text/javascript"></script>
 <script language="javaScript" type="text/javascript">
-    seckill.detail.init(${seckillGoods.id?c},${seckillGoods.startTimeMills?c},${seckillGoods.endTimeMills?c},${seckillGoods.userKilled?string('true','false')},${seckillGoods.currentTimeMills?c});
+    seckill.detail.init(${seckillGoods.id?c},${seckillGoods.startTimeMills?c},${seckillGoods.endTimeMills?c},${seckillGoods.userKilled?string('true','false')},${seckillGoods.currentTimeMills?c},'${seckillGoods.killUrl}');
 </script>
 </body>
 

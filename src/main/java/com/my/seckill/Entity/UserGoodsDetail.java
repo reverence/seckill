@@ -23,6 +23,8 @@ public class UserGoodsDetail {
 
     private Boolean userKilled = false;
 
+    private String killUrl = "";
+
     public UserGoodsDetail(){
 
     }
@@ -32,6 +34,14 @@ public class UserGoodsDetail {
         this.startTimeMills = dto.getStartTime().getTime();
         this.endTimeMills = dto.getEndTime().getTime();
         this.currentTimeMills = new Date().getTime();
+    }
+
+    public String getKillUrl() {
+        return killUrl;
+    }
+
+    public void setKillUrl(String killUrl) {
+        this.killUrl = killUrl;
     }
 
     public Long getCurrentTimeMills() {

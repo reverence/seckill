@@ -2,7 +2,6 @@ package com.my.seckill.service;
 
 import com.google.gson.Gson;
 import com.my.seckill.Entity.SeckillResult;
-import com.my.seckill.Entity.SeckillUrlInfo;
 import com.my.seckill.dao.SeckillGoodsDao;
 import com.my.seckill.dto.SeckillGoodsDTO;
 import com.my.seckill.util.ConfigUtils;
@@ -82,25 +81,6 @@ public class SeckillService {
         base = base+yy+mm+dd+hh+mi;
         String md5 = DigestUtils.md5DigestAsHex(base.getBytes());
         return md5;
-    }
-
-    public SeckillUrlInfo getSeckillUrlInfo(Long goodsId) {
-        long currentTime = new Date().getTime();
-        String str = (String)redisService.getSeckillCacheKey(Constants.SECKILL_GOODS_CACHE_PREFIX+goodsId);
-        SeckillGoodsDTO seckillGoodsDTO = new Gson().fromJson(str,SeckillGoodsDTO.class);
-        long startTime = seckillGoodsDTO.getStartTime().getTime();
-        long endTime = seckillGoodsDTO.getEndTime().getTime();
-        SeckillUrlInfo urlInfo = new SeckillUrlInfo();
-        if(startTime>currentTime){
-            urlInfo.setCanStart(false);
-            urlInfo.setCurrentTime(currentTime);
-            urlInfo.setEndTime(endTime);
-            urlInfo.setStartTime(startTime);
-        }else if(currentTime<endTime){
-            urlInfo.setCanStart(true);
-            urlInfo.setSeckillUrl(generateSeckillUrl(goodsId));
-        }
-        return urlInfo;
     }
 
     public SeckillResult executeSeckill(String md5, Long goodsId, String userName) {

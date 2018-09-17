@@ -2,7 +2,6 @@ package com.my.seckill.controller;
 
 import com.my.seckill.Entity.SeckillResponse;
 import com.my.seckill.Entity.SeckillResult;
-import com.my.seckill.Entity.SeckillUrlInfo;
 import com.my.seckill.Entity.UserGoodsDetail;
 import com.my.seckill.dto.SeckillGoodsDTO;
 import com.my.seckill.service.SeckillService;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,27 +44,13 @@ public class SeckillController {
         String userName = (String)request.getAttribute("userName");
         if(seckillService.alreadyKilled(userName,id)){
             detail.setUserKilled(true);
+        }else{
+            if(detail.getCurrentTimeMills()>detail.getStartTimeMills() && detail.getCurrentTimeMills()<detail.getEndTimeMills()){
+                detail.setKillUrl(seckillService.generateSeckillUrl(id));
+            }
         }
         model.addAttribute("seckillGoods", detail);
         return "detail";
-    }
-
-    @RequestMapping(value = "/currentTime", method = RequestMethod.GET)
-    @ResponseBody
-    public SeckillResponse<Long> currentTime() {
-        Date now = new Date();
-        return new SeckillResponse<Long>(true,now.getTime());
-    }
-
-    @RequestMapping(value = "/url", method = RequestMethod.GET)
-    @ResponseBody
-    public SeckillResponse<SeckillUrlInfo> getSeckillUrl (@RequestParam("goodsId")Long goodsId,HttpServletRequest request) {
-        if(null == goodsId){
-            return new SeckillResponse<SeckillUrlInfo>(false,"参数错误");
-        }
-        String userName = (String)request.getAttribute("userName");
-        SeckillUrlInfo urlInfo  = seckillService.getSeckillUrlInfo(goodsId);
-        return new SeckillResponse<SeckillUrlInfo>(true,urlInfo);
     }
 
     @RequestMapping(value = "/{md5}/execute", method = RequestMethod.POST)
