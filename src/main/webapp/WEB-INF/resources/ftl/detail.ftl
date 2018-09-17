@@ -37,6 +37,16 @@
 <script src="//cdn.bootcss.com/jquery.countdown/2.1.0/jquery.countdown.min.js"></script>
 <script src="${basePath}/resources/js/seckill.js"  type="text/javascript"></script>
 <script language="javaScript" type="text/javascript">
+    document.onkeydown = function (e) {
+        var ev = window.event || e;
+        var code = ev.keyCode || ev.which;
+        if (code == 116) {
+            ev.keyCode ? ev.keyCode = 0 : ev.which = 0;
+            cancelBubble = true;
+            return false;
+        }
+    } //禁止f5刷新
+    document.oncontextmenu=function(){return false};//禁止右键刷新
     seckill.detail.init(${seckillGoods.id?c},${seckillGoods.startTimeMills?c},${seckillGoods.endTimeMills?c},${seckillGoods.userKilled?string('true','false')},${seckillGoods.currentTimeMills?c},'${seckillGoods.killUrl}');
 </script>
 </body>
