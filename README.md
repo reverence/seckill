@@ -20,7 +20,7 @@ Sentinel也是一个redis实例，这里我们三个配置文件，有三个哨�
 8，	Nginx配置，新建缓存目录/home/chengzhang/nginx/cache/webpages,将default.conf文件拷贝到nginx目录/etc/nginx/conf.d/下, 执行命令sudo nginx -c /etc/nginx/nginx.conf启动nginx
 
 
-9，	启动tomcat,访问地址http://www.myseckill.com/seckill/list
+9，	配置好hosts,127.0.0.1 www.myseckill.com 启动tomcat,访问地址http://www.myseckill.com/seckill/list
 
 
 
