@@ -1,0 +1,9 @@
+
+
+redis-server redis17000.conf
+redis-server redis17001.conf
+redis-server redis17002.conf
+
+redis-server sentinel27000.conf --sentinel
+redis-server sentinel27001.conf --sentinel
+redis-server sentinel27002.conf --sentinel
