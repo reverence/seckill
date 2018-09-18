@@ -19,7 +19,7 @@ Sentinel也是一个redis实例，这里我们三个配置文件，有三个哨�
 6，	执行打包命令mvn package -Dmaven.test.skip=true,打出的war包为myseckill.war,拷贝到tomcat webapps目录下
 
 7，	Tomcat server.xml中配置如下一行
-<Context docBase="myseckill" path="/"  reloadable="true" ></Context>
+"<Context docBase="myseckill" path="/"  reloadable="true" ></Context>"
 
 8，	Nginx配置，新建缓存目录/home/chengzhang/nginx/cache/webpages,将default.conf文件拷贝到nginx目录/etc/nginx/conf.d/下, 执行命令sudo nginx -c /etc/nginx/nginx.conf启动nginx
 
