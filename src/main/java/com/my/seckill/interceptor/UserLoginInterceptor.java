@@ -49,9 +49,8 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter {
                 response.sendRedirect("/user/login?actionUrl="+url);
                 return false;
             }
-            long timeOut = System.currentTimeMillis()/1000+10*60;
-            redisService.expire(value,timeOut, TimeUnit.SECONDS);
-            redisService.expire(user,timeOut,TimeUnit.SECONDS);
+            redisService.expire(value,10, TimeUnit.MINUTES);
+            redisService.expire(user,10,TimeUnit.MINUTES);
             request.setAttribute("userName",user);
         }
         return true;
