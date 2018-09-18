@@ -6,6 +6,7 @@ import com.my.seckill.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,7 +49,7 @@ public class UserLoginController {
             redisService.setSeckillCacheKey(cookie.getValue(),userName,10, TimeUnit.MINUTES);//十分钟
             redisService.setSeckillCacheKey(userName,cookie.getValue(),10,TimeUnit.MINUTES);
 
-            if(actionUrl==null) {
+            if(StringUtils.isEmpty(actionUrl)) {
                 //说明直接登录
                 return "redirect:/seckill/list";
             }else {
