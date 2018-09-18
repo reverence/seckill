@@ -1,4 +1,7 @@
 # seckill
+参见博客:https://blog.csdn.net/chengzhang1989/article/details/81711734
+
+how to run this project?
 
 1，	执行文件sql.sql
 
