@@ -19,6 +19,9 @@
             <td><input type="password" id="password" name="password"></td>
         </tr>
         <tr>
+            <td><input id="actionUrl" type="hidden" name="actionUrl" value="${actionUrl}"></td>
+        </tr>
+        <tr>
             <td><input id="submit" type="submit" value="登录"></td>
         </tr>
     </table>

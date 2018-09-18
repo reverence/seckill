@@ -83,4 +83,9 @@ public class RedisService {
         String result= (String)seckillCacheRedisTemplate.execute(smoothAccessScript,Collections.singletonList(key),String.valueOf(currentTime),String.valueOf(step));
         return Long.parseLong(result);
     }
+
+
+    public void expire(String key, long timeOut,TimeUnit timeUnit) {
+        seckillCacheRedisTemplate.expire(key,timeOut,timeUnit);
+    }
 }
